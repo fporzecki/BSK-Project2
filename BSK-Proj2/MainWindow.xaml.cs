@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DatabaseLayer;
+using System.Collections.ObjectModel;
 
 namespace BSK_Proj2
 {
@@ -20,8 +22,16 @@ namespace BSK_Proj2
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly ObservableCollection<Dataset> _datasets;
+
         public MainWindow()
         {
+            // help is required here (never had experience with using EF)
+            // binding datasets to observable collection in datagrid
+            using (var ctx = new Entities())
+            {
+                _datasets = ctx.Set<Dataset>().Local;
+            }
             InitializeComponent();
         }
     }
