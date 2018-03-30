@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clearences">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ClearenceName" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="DatasetClearences">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ClearenceID" Type="int" />
+          <Property Name="DatasetID" Type="int" />
+        </EntityType>
+        <EntityType Name="Datasets">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="DatasetName" Type="varchar" MaxLength="50" />
+          <Property Name="ShortLabel" Type="varchar" MaxLength="30" />
+          <Property Name="LongLabel" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="UserClearences">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ClearenceID" Type="int" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="30" />
+          <Property Name="PasswordHash" Type="varchar" MaxLength="100" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__DatasetCl__Clear__03F0984C">
+          <End Role="Clearences" Type="Self.Clearences" Multiplicity="0..1" />
+          <End Role="DatasetClearences" Type="Self.DatasetClearences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clearences">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DatasetClearences">
+              <PropertyRef Name="ClearenceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DatasetCl__Datas__04E4BC85">
+          <End Role="Datasets" Type="Self.Datasets" Multiplicity="0..1" />
+          <End Role="DatasetClearences" Type="Self.DatasetClearences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Datasets">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DatasetClearences">
+              <PropertyRef Name="DatasetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserClear__Clear__00200768">
+          <End Role="Clearences" Type="Self.Clearences" Multiplicity="0..1" />
+          <End Role="UserClearences" Type="Self.UserClearences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clearences">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserClearences">
+              <PropertyRef Name="ClearenceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserClear__UserI__01142BA1">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserClearences" Type="Self.UserClearences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserClearences">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Clearences" EntityType="Self.Clearences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DatasetClearences" EntityType="Self.DatasetClearences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Datasets" EntityType="Self.Datasets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserClearences" EntityType="Self.UserClearences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__DatasetCl__Clear__03F0984C" Association="Self.FK__DatasetCl__Clear__03F0984C">
+            <End Role="Clearences" EntitySet="Clearences" />
+            <End Role="DatasetClearences" EntitySet="DatasetClearences" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DatasetCl__Datas__04E4BC85" Association="Self.FK__DatasetCl__Datas__04E4BC85">
+            <End Role="Datasets" EntitySet="Datasets" />
+            <End Role="DatasetClearences" EntitySet="DatasetClearences" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserClear__Clear__00200768" Association="Self.FK__UserClear__Clear__00200768">
+            <End Role="Clearences" EntitySet="Clearences" />
+            <End Role="UserClearences" EntitySet="UserClearences" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserClear__UserI__01142BA1" Association="Self.FK__UserClear__UserI__01142BA1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserClearences" EntitySet="UserClearences" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clearence">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ClearenceName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DatasetClearences" Relationship="Self.FK__DatasetCl__Clear__03F0984C" FromRole="Clearences" ToRole="DatasetClearences" />
+          <NavigationProperty Name="UserClearences" Relationship="Self.FK__UserClear__Clear__00200768" FromRole="Clearences" ToRole="UserClearences" />
+        </EntityType>
+        <EntityType Name="DatasetClearence">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ClearenceID" Type="Int32" />
+          <Property Name="DatasetID" Type="Int32" />
+          <NavigationProperty Name="Clearence" Relationship="Self.FK__DatasetCl__Clear__03F0984C" FromRole="DatasetClearences" ToRole="Clearences" />
+          <NavigationProperty Name="Dataset" Relationship="Self.FK__DatasetCl__Datas__04E4BC85" FromRole="DatasetClearences" ToRole="Datasets" />
+        </EntityType>
+        <EntityType Name="Dataset">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="DatasetName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShortLabel" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LongLabel" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DatasetClearences" Relationship="Self.FK__DatasetCl__Datas__04E4BC85" FromRole="Datasets" ToRole="DatasetClearences" />
+        </EntityType>
+        <EntityType Name="UserClearence">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ClearenceID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="Clearence" Relationship="Self.FK__UserClear__Clear__00200768" FromRole="UserClearences" ToRole="Clearences" />
+          <NavigationProperty Name="User" Relationship="Self.FK__UserClear__UserI__01142BA1" FromRole="UserClearences" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserClearences" Relationship="Self.FK__UserClear__UserI__01142BA1" FromRole="Users" ToRole="UserClearences" />
+        </EntityType>
+        <Association Name="FK__DatasetCl__Clear__03F0984C">
+          <End Role="Clearences" Type="Self.Clearence" Multiplicity="0..1" />
+          <End Role="DatasetClearences" Type="Self.DatasetClearence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clearences">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DatasetClearences">
+              <PropertyRef Name="ClearenceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserClear__Clear__00200768">
+          <End Role="Clearences" Type="Self.Clearence" Multiplicity="0..1" />
+          <End Role="UserClearences" Type="Self.UserClearence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clearences">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserClearences">
+              <PropertyRef Name="ClearenceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DatasetCl__Datas__04E4BC85">
+          <End Role="Datasets" Type="Self.Dataset" Multiplicity="0..1" />
+          <End Role="DatasetClearences" Type="Self.DatasetClearence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Datasets">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DatasetClearences">
+              <PropertyRef Name="DatasetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserClear__UserI__01142BA1">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserClearences" Type="Self.UserClearence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserClearences">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clearences" EntityType="Self.Clearence" />
+          <EntitySet Name="DatasetClearences" EntityType="Self.DatasetClearence" />
+          <EntitySet Name="Datasets" EntityType="Self.Dataset" />
+          <EntitySet Name="UserClearences" EntityType="Self.UserClearence" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__DatasetCl__Clear__03F0984C" Association="Self.FK__DatasetCl__Clear__03F0984C">
+            <End Role="Clearences" EntitySet="Clearences" />
+            <End Role="DatasetClearences" EntitySet="DatasetClearences" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserClear__Clear__00200768" Association="Self.FK__UserClear__Clear__00200768">
+            <End Role="Clearences" EntitySet="Clearences" />
+            <End Role="UserClearences" EntitySet="UserClearences" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DatasetCl__Datas__04E4BC85" Association="Self.FK__DatasetCl__Datas__04E4BC85">
+            <End Role="Datasets" EntitySet="Datasets" />
+            <End Role="DatasetClearences" EntitySet="DatasetClearences" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserClear__UserI__01142BA1" Association="Self.FK__UserClear__UserI__01142BA1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserClearences" EntitySet="UserClearences" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Clearences">
+            <EntityTypeMapping TypeName="Model.Clearence">
+              <MappingFragment StoreEntitySet="Clearences">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ClearenceName" ColumnName="ClearenceName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DatasetClearences">
+            <EntityTypeMapping TypeName="Model.DatasetClearence">
+              <MappingFragment StoreEntitySet="DatasetClearences">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ClearenceID" ColumnName="ClearenceID" />
+                <ScalarProperty Name="DatasetID" ColumnName="DatasetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Datasets">
+            <EntityTypeMapping TypeName="Model.Dataset">
+              <MappingFragment StoreEntitySet="Datasets">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DatasetName" ColumnName="DatasetName" />
+                <ScalarProperty Name="ShortLabel" ColumnName="ShortLabel" />
+                <ScalarProperty Name="LongLabel" ColumnName="LongLabel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserClearences">
+            <EntityTypeMapping TypeName="Model.UserClearence">
+              <MappingFragment StoreEntitySet="UserClearences">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ClearenceID" ColumnName="ClearenceID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Model.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
